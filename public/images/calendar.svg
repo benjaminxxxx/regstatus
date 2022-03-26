@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 736 648" style="enable-background:new 0 0 736 648;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#616E7D;}
+	.st1{fill:#AAD4C8;}
+	.st2{fill:#82BFAB;}
+</style>
+<g id="Bg">
+</g>
+<g id="Object">
+	<g>
+		<path class="st0" d="M13.6,635c8.5,8.5,20.3,13.4,32.3,13.4h5.7h24.3h614.2c12,0,23.8-4.9,32.3-13.4c8.5-8.5,13.4-20.2,13.4-32.2
+			V225.5H0.3v377.2C0.3,614.7,5.2,626.5,13.6,635z M587.6,256.1h105.3v93.7H587.6V256.1z M587.6,375.6h105.3v93.6H587.6V375.6z
+			 M451.5,256.1h105.3v93.7H451.5V256.1z M451.5,375.6h105.3v93.6H451.5V375.6z M451.5,495.2h105.3v93.6H451.5V495.2z M315.4,256.1
+			h105.3v93.7H315.4V256.1z M315.4,375.6h105.3v93.6H315.4V375.6z M315.4,495.2h105.3v93.6H315.4V495.2z M179.2,256.1h105.3v93.7
+			H179.2V256.1z M179.2,375.6h105.3v93.6H179.2V375.6z M179.2,495.2h105.3v93.6H179.2V495.2z M43.1,375.6h105.3v93.6H43.1V375.6z
+			 M43.1,495.2h105.3v93.6H43.1V495.2z"/>
+		<rect x="0.3" y="182" class="st1" width="735.4" height="27"/>
+		<path class="st1" d="M75.9,52.2H51.6h-5.7c-12,0-23.8,4.9-32.3,13.4C5.2,74.1,0.3,85.8,0.3,97.8v53h735.4v-53
+			c0-12-4.9-23.7-13.4-32.2c-8.5-8.5-20.2-13.4-32.2-13.4h-77.4v59.7c0,11.1-9,20.2-20.2,20.2H550c-11.1,0-20.2-9-20.2-20.2V52.2
+			H206.2v59.7c0,11.1-9,20.2-20.2,20.2h-42.5c-11.2,0-20.2-9-20.2-20.2V52.2H75.9z"/>
+		<rect x="0.3" y="150.8" class="st2" width="735.4" height="31.2"/>
+		<polygon class="st0" points="143.5,111.9 186,111.9 186,52.2 186,-0.3 143.5,-0.3 143.5,52.2 		"/>
+		<polygon class="st0" points="550,111.9 592.5,111.9 592.5,52.2 592.5,-0.3 550,-0.3 550,52.2 		"/>
+		<rect x="179.2" y="256.1" class="st2" width="105.3" height="93.7"/>
+		<rect x="315.4" y="256.1" class="st2" width="105.3" height="93.7"/>
+		<rect x="451.5" y="256.1" class="st2" width="105.3" height="93.7"/>
+		<rect x="587.6" y="256.1" class="st2" width="105.3" height="93.7"/>
+		<rect x="43.1" y="375.6" class="st2" width="105.3" height="93.6"/>
+		<rect x="179.2" y="375.6" class="st2" width="105.3" height="93.6"/>
+		<rect x="315.4" y="375.6" class="st2" width="105.3" height="93.6"/>
+		<rect x="451.5" y="375.6" class="st1" width="105.3" height="93.6"/>
+		<rect x="587.6" y="375.6" class="st2" width="105.3" height="93.6"/>
+		<rect x="43.1" y="495.2" class="st2" width="105.3" height="93.6"/>
+		<rect x="179.2" y="495.2" class="st1" width="105.3" height="93.6"/>
+		<rect x="315.4" y="495.2" class="st2" width="105.3" height="93.6"/>
+		<rect x="451.5" y="495.2" class="st2" width="105.3" height="93.6"/>
+	</g>
+</g>
+</svg>

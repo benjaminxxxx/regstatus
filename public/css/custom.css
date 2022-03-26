@@ -1,0 +1,59 @@
+*::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+}
+*::-webkit-scrollbar-thumb {
+    background: #1d8fec;
+    border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+*::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+*::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+*::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+*::-webkit-scrollbar-track:hover,
+*::-webkit-scrollbar-track:active {
+  background: #d4d4d4;
+}
+
+span[aria-current="page"]>span{
+    background: #4F46E5;
+    opacity: 1;
+    color:#f3f3f3;
+}
+#signaturesign1,
+#signaturesign2,
+#signaturesign3,
+#signaturesign4,
+#signaturesign5{
+    position:relative
+}
+#signaturesign1 input,
+#signaturesign2 input,
+#signaturesign3 input,
+#signaturesign4 input,
+#signaturesign5 input{
+    right: -28px;
+    top: 28px !important;
+    left: inherit !important;
+    background: #ff3131;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 6px;
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `companions` ADD `tipo` VARCHAR(60) NULL AFTER `telefono`;
