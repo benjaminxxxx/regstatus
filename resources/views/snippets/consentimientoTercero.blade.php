@@ -138,12 +138,13 @@
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <p class="title" style="font-size: 11px">PROTOCOLO DE APLICACIÓN DE DOSIS DE REFUERZO DE LA VACUNA CONTRA LA COVID-19 PARA PERSONAL DE LA SALUD, PERSONAL ADMINISTRATIVO Y PERSONAL QUE BRINDA SERVICIOS GENERALES DE LAS INSTITUCIONES PRESTADORAS DE SERVICIO DE SALUD.</p>
+                                <p class="title" style="font-size: 11px">“Manual de Vacunación Segura contra la COVID-19 en el Seguro Social de Salud- EsSaLUD-V.T”</p>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p class="title">ANEXO N° 01</p>
+                                <p class="title">ANEXO N° 5-C</p>
+                                <p class="title">DOSIS DE REFUERZO DE LA VACUNA CONTRA LA COVID-19</p>
                             </td>
                         </tr>
                         <tr>
@@ -192,14 +193,14 @@
                             <td>
                                 <p class="mt-3 text-justify"> 
                                     SI (<span><input type="radio" required wire:model.defer="child_documento2_pre1" name="doc2pre1" value="SI"></span>) 
-                                    NO (<span><input type="radio" required wire:model.defer="child_documento2_pre1" name="doc2pre1" value="NO"></span>) tengo síntomas compatibles con COVID-19; o he dado positivo a una prueba a COVID-19, en las últimas dos semanas; o estoy en seguimiento clínico por COVID-19.
+                                    NO (<span><input type="radio" required wire:model.defer="child_documento2_pre1" name="doc2pre1" value="NO"></span>) tiene síntomas compatibles con COVID-19; o ha dado positivo a una prueba    COVID-19, en las últimas dos semanas; o estoy en seguimiento clínico por COVID-19.
                                 </p>
                                 <p class="text-justify">
                                     SI (<span><input type="radio" required wire:model.defer="child_documento2_pre2" name="doc2pre2" value="SI"></span>) 
-                                    NO (<span><input type="radio" required wire:model.defer="child_documento2_pre2" name="doc2pre2" value="NO"></span>) he tenido contacto con alguien que dio positivo a la COVID-19, en las últimas dos semanas; o estoy en cuarentena.
+                                    NO (<span><input type="radio" required wire:model.defer="child_documento2_pre2" name="doc2pre2" value="NO"></span>) tiene contacto con alguien que dio positivo  a  la COVID-19, en las últimas dos semanas ; o estuvo en cuarentena.
                                 </p>
                                 <p class="text-justify">
-                                    En ese sentido, he sido informado (a) de los beneficios y los potenciales efectos adversos de la Vacuna contra la COVID-19 y, resueltas todas las preguntas y dudas al respecto, consciente de mis derechos y en forma voluntaria, en cumplimiento de la normativa vigente; 
+                                    En ese sentido, he sido informado (a) de los beneficios y Ios potenciales efectos adversos de la Vacuna contra la COVID-19 y, resueltas todas las preguntas y dudas al respecto, consciente de mis derechos y en forma voluntaria, en cumplimiento de la normativa vigente; 
 
                                     SI (<span><input type="radio" required wire:model.defer="child_documento2_pre3" name="doc2pre3" value="SI"></span>) 
                                     NO (<span><input type="radio" required wire:model.defer="child_documento2_pre3" name="doc2pre3" value="NO"></span>) doy mi consentimiento para que el personal de salud me aplique la vacuna contra el COVID-19.

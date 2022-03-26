@@ -132,11 +132,13 @@ $nombre_sp = mb_strtoupper($nombres);
                     <br>
                     <p class="title">
 
-                        <span style="font-size: 11px">PROTOCOLO DE APLICACIÓN DE DOSIS DE REFUERZO DE LA VACUNA CONTRA LA COVID-19 PARA {{$para}}</span>
+                        <span style="font-size: 11px">“Manual de Vacunación Segura contra la COVID-19 en el Seguro Social de Salud- EsSaLUD-V.T”</span>
                         
                         <br>
 
-                        ANEXO N° 01
+                        ANEXO N° 5-C
+                        <br>
+                        DOSIS DE REFUERZO DE LA VACUNA CONTRA LA COVID-19
 
                         <br>
                     
@@ -191,7 +193,7 @@ $nombre_sp = mb_strtoupper($nombres);
                             @else
                             <img src="{{public_path('images/checkno.png')}}" style="max-width:{{$ac}}" alt="">
                             @endif
-                         tengo síntomas compatibles con COVID-19; o he dado positivo a una prueba a COVID-19, en las últimas dos semanas; o estoy en seguimiento clínico por COVID-19.
+                            tiene síntomas compatibles con COVID-19; o ha dado positivo a una prueba    COVID-19, en las últimas dos semanas; o estoy en seguimiento clínico por COVID-19.
                     </p>
                     <p class="text-justify">
                         SI 
@@ -206,7 +208,7 @@ $nombre_sp = mb_strtoupper($nombres);
                             @else
                             <img src="{{public_path('images/checkno.png')}}" style="max-width:{{$ac}}" alt=""> 
                             @endif
-                           he tenido contacto con alguien que dio positivo a la COVID-19, en las últimas dos semanas; o estoy en cuarentena.
+                            tiene contacto con alguien que dio positivo  a  la COVID-19, en las últimas dos semanas ; o estuvo en cuarentena
                     </p>
                     <p class="text-justify">
                         En ese sentido, he sido informado (a) de los beneficios y los potenciales efectos adversos de la Vacuna contra la COVID-19 y, resueltas todas las preguntas y dudas al respecto, consciente de mis derechos y en forma voluntaria, en cumplimiento de la normativa vigente; 
