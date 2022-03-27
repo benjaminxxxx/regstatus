@@ -94,7 +94,7 @@
                         <tr>
                             <td>
                                 <p class="title">ANEXO N" 5-A</p>
-                                <p class="title">EXPRESIÓN DE CONSENTIMIENTO INFORMADO 55</p>
+                                <p class="title">EXPRESIÓN DE CONSENTIMIENTO INFORMADO <sup style="font-size: 8px">55</sup></p>
                             </td>
                         </tr>
                         <tr>

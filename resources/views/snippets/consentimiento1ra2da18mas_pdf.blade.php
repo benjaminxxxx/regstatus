@@ -129,7 +129,7 @@
 
                         <br>
                     
-                        EXPRESIÓN DE CONSENTIMIENTO INFORMADO 55</p>
+                        EXPRESIÓN DE CONSENTIMIENTO INFORMADO <sup style="font-size: 8px">55</sup></p>
                 </td>
             </tr>
            
