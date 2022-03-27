@@ -5,6 +5,7 @@
     @include('snippets.consentimiento14b')
     @include('snippets.consentimientoChild')
     @include('snippets.consentimientoTercero')
+    @include('snippets.consentimiento1ra2da18mas')
 
     @include('snippets.consentimientoSino')
 
@@ -114,7 +115,7 @@
                     </div>
                     <div class="col-span-8 sm:col-span-4 lg:col-span-2">
                         <x-label for="dosis" value="DOSIS" />
-                        <x-select wire:model.defer="dosis" required class="w-full">
+                        <x-select wire:model.defer="dosis" wire:change="calcularConsentimiento" required class="w-full">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -132,7 +133,19 @@
                             @endif
                         </x-select>
                     </div>  
-                    <div class="col-span-8 sm:col-span-4 lg:col-span-2">
+                    <div class="col-span-8 sm:col-span-4 lg:col-span-4">
+                        
+                        <x-label for="opt_consentimiento" value="TIPO DE CONSENTIMIENTO" />
+                        <x-select  wire:model="opt_consentimiento" required class="w-full">
+                            <option value="">ELEGIR</option>
+                            <option value="3ra18mas">3ra dosis de 18 a más</option>
+                            <option value="1ra2da18mas">1ra y 2da dosis de 18 a más</option>
+                            <!--<option value="1217">12-17 años</option>
+                            <option value="511">5-11 años</option>-->
+                        </x-select>
+                    </div>  
+                    
+                    <div class="col-span-8 sm:col-span-4 lg:col-span-2 hidden">
                         
                         <div class="flex">
                             <input type="checkbox" wire:model="estado_edad" name="estado_edad" id="estado_edad">
@@ -141,7 +154,7 @@
                         </div>
                        
                         
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -323,6 +336,9 @@
 
             var sigdiv9 = null;
             var sigdiv10 = null;
+
+            var sigdiv1ra2da18mas1 = null;
+            var sigdiv1ra2da18mas2 = null;
             
             $(document).ready(function() {
                 
@@ -376,6 +392,16 @@
                     Livewire.emit('guardarFirmaTercera',firmaDocumento7[1],firmaDocumento8[1]);
                 
                 });
+                $(document).on('click','#signature1ra2da18mas',function(e){
+                    e.preventDefault();
+                    $('.loading-docs').removeClass('hidden');
+                    $(this).attr('disabled',true);
+                    var firma1ra2da18mas1 = $(sigdiv1ra2da18mas1).jSignature('getData', 'image');
+                    var firma1ra2da18mas2 = $(sigdiv1ra2da18mas2).jSignature('getData', 'image');
+
+                    Livewire.emit('guardarFirma1ra2da18mas',firma1ra2da18mas1[1],firma1ra2da18mas2[1]);
+                
+                });
             });
           
             window.livewire.on('generar-firma', iddoc => {
@@ -417,6 +443,16 @@
                     $('.firmap'+iddoc).removeClass('opacity-0');
                     sigdiv7 = $("#signaturesign7").jSignature({'UndoButton':true,color:"#000",lineWidth:1});
                     sigdiv8 = $("#signaturesign8").jSignature({'UndoButton':true,color:"#000",lineWidth:1});
+                    
+                });
+            });
+            window.livewire.on('generar-firma-1ra2da18mas', iddoc => {
+                $(document).ready(function() {
+                
+                    $('.firmap').addClass('opacity-0');
+                    $('.firmap'+iddoc).removeClass('opacity-0');
+                    sigdiv1ra2da18mas1 = $("#signaturesign1ra2da18mas1").jSignature({'UndoButton':true,color:"#000",lineWidth:1});
+                    sigdiv1ra2da18mas2 = $("#signaturesign1ra2da18mas2").jSignature({'UndoButton':true,color:"#000",lineWidth:1});
                     
                 });
             });

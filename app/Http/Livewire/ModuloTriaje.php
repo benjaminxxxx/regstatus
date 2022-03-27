@@ -42,7 +42,9 @@ class ModuloTriaje extends Component
     public $mostrarconsentimiento14b = false;
     public $mostrarconsentimientoSino = false;
     public $mostrarconsentimientoChild = false;
+
     public $mostrarconsentimientoTercera = false;
+    public $mostrarconsentimiento1ra2da18mas = false;
     
     //update 29/10/21
     public $mostrarconsentimientoMenor = false;
@@ -112,7 +114,9 @@ class ModuloTriaje extends Component
 
     public $poderGenerarConsentimiento = false;
 
-    protected $listeners = ['guardarFirma','guardarFirma2','guardarFirmanv','guardarFirma4','guardarFirmaChild','guardarFirmaTercera'];
+    public $opt_consentimiento;
+
+    protected $listeners = ['guardarFirma','guardarFirma2','guardarFirmanv','guardarFirma4','guardarFirmaChild','guardarFirmaTercera','guardarFirma1ra2da18mas'];
 
     public function mount(){
         $red = Establecimiento::with(['rede'])->where(['estado'=>'1'])->first();
@@ -347,7 +351,7 @@ class ModuloTriaje extends Component
                 $this->poderGenerarConsentimiento = false;
             }
 
-            
+            $this->calcularConsentimiento();
 
             $this->documentos = $usuario->documentos;
 
@@ -365,6 +369,15 @@ class ModuloTriaje extends Component
             
         }
         
+    }
+    public function calcularConsentimiento(){
+        if($this->edad>=18 && $this->dosis==3){
+            $this->opt_consentimiento = '3ra18mas';
+        }elseif($this->edad>=18 && ($this->dosis==1 || $this->dosis==2)){
+            $this->opt_consentimiento = '1ra2da18mas';
+        }else{
+            $this->opt_consentimiento = null;
+        }
     }
     public function mostrarElConsentimiento(){
 
@@ -388,34 +401,59 @@ class ModuloTriaje extends Component
 
 
         try {
+
+            
+
+
             $regUpdate = UsuarioAtendido::find($this->registro_id)->update($arrData);
+
+            //parche 2022, ahora hay un combo par preseleccionar de forma automatica el numero de firma
+            if($this->opt_consentimiento!=null){
+                switch ($this->opt_consentimiento) {
+                    case '3ra18mas':
+                        $this->emit('generar-firma-tres','1');
+                        $this->mostrarconsentimientoTercera = true;
+                        break;
+                    case '1ra2da18mas':
+                        $this->emit('generar-firma-1ra2da18mas','1');
+                        $this->mostrarconsentimiento1ra2da18mas = true;
+                        break;
+                    
+                    default:
+                        $this->mostrarconsentimiento = true;
+                        break;
+                }
+            }else{
+                //version antigua continua
+                if($this->estado_edad==true){
+                    //parche de actualizacion para los niños
+                    $this->emit('generar-firma-child','1');
+                    $this->mostrarconsentimientoChild = true;
+                }else{
+                    //parche, actualizacion para la tercera dosis
+                  
+                    if($this->dosis=="3" || $this->dosis==3){
+                        //generar tercer consentimiento
+                        $this->emit('generar-firma-tres','1');
+                        $this->mostrarconsentimientoTercera = true;
+                    }else{
+                        if($this->marca=='SINOPHARM'){
+                            $this->emit('generar-firma-sin','1');
+                            $this->mostrarconsentimientoSino = true;
+                        }else{
+                            $this->mostrarconsentimiento = true;
+                        }
+                    }
+                    
+                }
+            }
+
+            
+
         } catch (\Throwable $th) {
             request()->session()->flash('flash.banner', 'Error:' . $th->getMessage());
             request()->session()->flash('flash.bannerStyle', 'danger');
         }
-
-        if($this->estado_edad==true){
-            //parche de actualizacion para los niños
-            $this->emit('generar-firma-child','1');
-            $this->mostrarconsentimientoChild = true;
-        }else{
-            //parche, actualizacion para la tercera dosis
-          
-            if($this->dosis=="3" || $this->dosis==3){
-                //generar tercer consentimiento
-                $this->emit('generar-firma-tres','1');
-                $this->mostrarconsentimientoTercera = true;
-            }else{
-                if($this->marca=='SINOPHARM'){
-                    $this->emit('generar-firma-sin','1');
-                    $this->mostrarconsentimientoSino = true;
-                }else{
-                    $this->mostrarconsentimiento = true;
-                }
-            }
-            
-        }
-        
 
         
     }
@@ -503,7 +541,29 @@ class ModuloTriaje extends Component
         
         return $this->generarDocumentosTercera();
     }
+    
+    public function guardarFirma1ra2da18mas($imagenConsentimiento,$imagenDesistimiento){
 
+        $this->firmaConsentimiento1 = $this->documento.uniqid() ."_1ra2da18mas.png";
+        $this->firmaDesistimiento = $this->documento.uniqid()."_1ra2da18mas.png";
+
+        $fecha_dir = date('y-m-d');
+            
+        if(!file_exists('firmas/' . $fecha_dir)){
+            File::makeDirectory('firmas/' . $fecha_dir);
+        }
+
+        $path1 = "firmas/".$fecha_dir."/".$this->firmaConsentimiento1;
+        $path2 = "firmas/".$fecha_dir."/".$this->firmaDesistimiento;
+
+        $status1 = file_put_contents($path1,base64_decode($imagenConsentimiento));
+        $status2 = file_put_contents($path2,base64_decode($imagenDesistimiento));
+
+        $this->mostrarconsentimiento1ra2da18mas = false;
+        //$this->emit('habilitar-boton');
+        
+        return $this->generarDocumentosFisico('1ra2da18mas');
+    }
     public function guardarFirma2(){
         //$this->firmaConsentimiento2 = $this->documento.uniqid().".png";
         //$path1 = "firmas/".$this->firmaConsentimiento2;
@@ -700,6 +760,107 @@ class ModuloTriaje extends Component
         $this->documentos_totales = null;
         $this->archivosAdjuntos = null;
 
+    }
+    public function generarDocumentosFisico($tipoConsentimiento){
+        $data = [
+            'documento1_redgerencia' => $this->documento1_redgerencia,
+            'documento1_establecimiento' => $this->documento1_establecimiento,
+            'nombres' => $this->nombres,
+            'edad' => $this->edad,
+            'documento' => $this->documento,
+            'telefono' => $this->telefono,
+            'domicilio' => $this->domicilio,
+            'archivosAdjuntos' => $this->archivosAdjuntos,
+            'child_documento2_pre1'=>$this->child_documento2_pre1,
+            'child_documento2_pre2'=>$this->child_documento2_pre2,
+            'child_documento2_pre3'=>$this->child_documento2_pre3,
+
+            'grupoderiesgo'=>$this->grupoderiesgo,
+            
+            'companion_documento'=>$this->companion_documento,
+            'companion_tipo'=>$this->companion_tipo,
+            'companion_nombres'=>$this->companion_nombres,
+
+
+            'firmaConsentimiento1'=>$this->firmaConsentimiento1,
+            'firmaDesistimiento'=>$this->firmaDesistimiento,
+
+            'firmartraije'=>$this->firmartraije,
+
+            'check_ninio_adolescente' => $this->estado_edad
+        ];
+
+        $nombreSede = '';
+
+        if($this->documento1_establecimiento!=null && $this->documento1_redgerencia!=null){
+            $nombreSede = mb_strtoupper($this->documento1_redgerencia) . ' - ' . mb_strtoupper($this->documento1_establecimiento);
+        }
+
+        $customPaper = array(0,0,595.28,841.89);
+
+        $fecha_dir = date('y-m-d');
+            
+        if(!file_exists('docs/' . $fecha_dir)){
+            File::makeDirectory('docs/' . $fecha_dir);
+        }
+
+        $this->documento_nombre_1 = $fecha_dir . '/' .  $nombreSede . '_' . $this->nombres . '_CONSENTIMIENTO.pdf';
+
+        $docpdf = '';
+
+        switch ($tipoConsentimiento) {
+            case '1ra2da18mas':
+                $docpdf = 'consentimiento1ra2da18mas_pdf';
+                break;
+            
+            default:
+                $docpdf = 'consentimientotres_mix_pdf';
+                break;
+        }
+
+        $pdf_documento1 = PDF::loadView("snippets.$docpdf", $data)
+        ->setPaper($customPaper)->save('docs/'. $this->documento_nombre_1);
+
+
+        $usuarioAtendido = UsuarioAtendido::find($this->registro_id);
+
+        if ($usuarioAtendido->documentos()!=null) {
+            if($usuarioAtendido->documentos()->count()>0){
+                //update
+                Documento::where(['usuariosatendido_id'=>$this->registro_id])->update([
+                    'documento_nombre_1'=>$this->documento_nombre_1,
+                ]);
+            }else{
+               
+                $registered = $usuarioAtendido->documentos()->create([
+                    'documento_nombre_1'=>$this->documento_nombre_1,
+                ]);
+            }
+            
+        }
+
+        //ACTUALIZAR ESTADO A TRIAJE
+        $usuarioAtendido->update([
+            'triaje_dni'=>Auth::user()->dni,
+            'triaje'=>Auth::user()->name,
+            'horatriaje'=>date('g:i A'),
+            'estado'=>'TRIAJE',
+        ]);
+
+        //actualizacion: ahora despues de registrar el triaje debe quedar limpio
+        $this->nombres = null;
+        $this->fechanacimiento = null;
+        $this->grupoderiesgo = null;
+        $this->edad = null;
+        $this->dosis = null;
+        $this->domicilio = null;
+        $this->telefono = null;
+        $this->registro_id = null;
+        $this->documentos = null;
+        $this->documento = null;
+        $this->setdocumento = null;
+        $this->documentos_totales = null;
+        $this->archivosAdjuntos = null;
     }
     public function generarDocumentosTercera(){
 
@@ -898,6 +1059,10 @@ class ModuloTriaje extends Component
     public function getdoc1firmaTres($cualfirma){
         $event='generar-firma-tres';
         $this->emit($event,$cualfirma);
+    }
+    public function getdoclafirma($evento,$cualfirma){
+        
+        $this->emit($evento,$cualfirma);
     }
     public function getdoc1firmaChild($cualfirma){
         $event='generar-firma-child';

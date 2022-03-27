@@ -1,6 +1,6 @@
 @php
 
-$nombre_sp = mb_strtoupper($nombres);
+    $nombre_sp = mb_strtoupper($nombres);
     /*DIA*/
     $campo_dia = str_pad(date('d'),2,'0',STR_PAD_RIGHT);
 
@@ -24,25 +24,7 @@ $nombre_sp = mb_strtoupper($nombres);
 
     $ac = '22px'; //ancho del check
 
-    $para = 'PERSONAL DE LA SALUD, PERSONAL ADMINISTRATIVO Y PERSONAL QUE BRINDA SERVICIOS GENERALES DE LAS INSTITUCIONES PRESTADORAS DE SERVICIO DE SALUD.';
-    $personal_de_salud = [
-        'PERSONAL DE ESSALUD'
-    ];
-    $mayor_de_edad = [
-        '50-59 AÑOS','MENORES DE 50','30-39 AÑOS','20-29 AÑOS','40-49 AÑOS','18-20 AÑOS','18 y 19 AÑOS'
-    ];
-    $arr_mayor_a_60 = [
-        '60-69 AÑOS','70-79 AÑOS','80 A MAS'
-    ];
-    if(in_array($grupoderiesgo,$personal_de_salud)){
-        $para = 'PERSONAL DE LA SALUD, PERSONAL ADMINISTRATIVO Y PERSONAL QUE BRINDA SERVICIOS GENERALES DE LAS INSTITUCIONES PRESTADORAS DE SERVICIO DE SALUD.';
-    }
-    if(in_array($grupoderiesgo,$mayor_de_edad)){
-        $para = 'EL MAYOR DE EDAD';
-    }
-    if(in_array($grupoderiesgo,$arr_mayor_a_60)){
-        $para = 'PERSONAS MAYORES DE 60 AÑOS';
-    }
+
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -121,13 +103,19 @@ $nombre_sp = mb_strtoupper($nombres);
 </style>
 </head>
 <body class="bg-purple">
-    <div class="sellos" style="position:absolute; left:-70px;bottom:160px;">
-        <img src="{{public_path('images/sellos.jpg')}}" width="60px" alt="">
+    <div class="sellos" style="position:absolute; left:-70px;top:0px;">
+        <img src="{{public_path('images/logo-essalud2.png')}}" width="170px" alt="">
     </div>
+    <div class="sellos" style="position:absolute; left:-70px;bottom:160px;">
+        <img src="{{public_path('images/sellos2.jpg')}}" width="70px" alt="">
+    </div>
+    
     <div class="content">
         <table class="w-full">
             <tr>
                 <td class="text-center" colspan="2">
+                    <br>
+                    <br>
                     <br>
                     <br>
                     <p class="title">
@@ -136,13 +124,12 @@ $nombre_sp = mb_strtoupper($nombres);
                         
                         <br>
 
-                        ANEXO N° 5-C
-                        <br>
-                        DOSIS DE REFUERZO DE LA VACUNA CONTRA LA COVID-19
+                        ANEXO N° 5-A
+                        
 
                         <br>
                     
-                        EXPRESIÓN DE CONSENTIMIENTO INFORMADO</p>
+                        EXPRESIÓN DE CONSENTIMIENTO INFORMADO 55</p>
                 </td>
             </tr>
            
@@ -210,6 +197,7 @@ $nombre_sp = mb_strtoupper($nombres);
                             @endif
                             he tenido contacto con alguien que dio positivo  a  la COVID-19, en las últimas dos semanas ; o estoy en cuarentena.
                     </p>
+                    <p class="text-justify">Se compromete a recibir las 2 dosis que estipula el esquema de las vacunas usadas en el Perú.</p>
                     <p class="text-justify">
                         En ese sentido, he sido informado (a) de los beneficios y Ios potenciales efectos adversos de la Vacuna contra la COVID-19 y, resueltas todas las preguntas y dudas al respecto, consciente de mis derechos y en forma voluntaria, en cumplimiento de la normativa vigente; 
                     </p>
@@ -238,7 +226,7 @@ $nombre_sp = mb_strtoupper($nombres);
                             <td width="50%" style="padding-right: 20px;">
                                 <div class="firma" style="min-height: 125px;">
                                     @if($firmartraije=='consentimiento')
-                                    <img src="{{public_path('firmas/'.$firmaConsentimiento1)}}" style="max-height:85px;" alt="">
+                                    <img src="{{public_path('firmas/'.date('y-m-d').'/'.$firmaConsentimiento1)}}" style="max-height:85px;" alt="">
                                     @else
                                     <div class="linea_bottom" style="width: 220px; text-align: center;">
                                         &nbsp;
@@ -263,7 +251,8 @@ $nombre_sp = mb_strtoupper($nombres);
                         <tr>
                             <td width="50%" style="padding-right: 20px">
                             
-                                <p class="sub">Firma o huella digital del paciente</p>
+                                <p class="sub">Firma o huelle digital del paciente, padre/madre*
+                                    o apoderado</p>
                                 <p class="mt-3">
                                     <div class="no_line_botton">DNI N° </div> 
                                     <div class="linea_bottom" style="width: 112px; text-align: center;">
@@ -331,7 +320,7 @@ $nombre_sp = mb_strtoupper($nombres);
                             <td width="50%" style="padding-right: 20px">
                                 <div class="firma" style="min-height: 125px;">
                                     @if($firmartraije=='desistimiento')
-                                    <img src="{{public_path('firmas/'.$firmaDesistimiento)}}" style="max-height:85px;" alt=""> 
+                                    <img src="{{public_path('firmas/'.date('y-m-d').'/'.$firmaDesistimiento)}}" style="max-height:85px;" alt=""> 
                                     @else
                                     <div class="linea_bottom" style="width: 220px; text-align: center;">
                                         &nbsp;
@@ -357,7 +346,8 @@ $nombre_sp = mb_strtoupper($nombres);
                         <tr>
                             <td width="50%" style="padding-right: 20px">
                             
-                                <p class="sub">Firma o huella digital del paciente</p>
+                                <p class="sub">Firma o huelle digital del paciente, padre/madre*
+                                    o apoderado</p>
                                 <p class="mt-3">
                                   
                                     <div class="no_line_botton">DNI N° </div> 
@@ -387,6 +377,82 @@ $nombre_sp = mb_strtoupper($nombres);
             
         </table>
     </div> 
+    <div style="page-break-before: always;"></div>
+    <div class="sellos" style="position:absolute; left:-70px;bottom:160px;">
+        <img src="{{public_path('images/sellos2.jpg')}}" width="70px" alt="">
+    </div>
+    <div class="content">
+        <table class="w-full">
+            <tr>
+                <td class="text-center" colspan="2">
+                    <br>
+                    <br>
+                    <p class="title">
+
+                        <span style="font-size: 11px">“Manual de Vacunación Segura contra la COVID-19 en el Seguro Social de Salud- EsSaLUD-V.T”</span>
+                        
+                        <br>
+
+                        ANEXO N° 5-B
+                        
+
+                        <br>
+                    
+                        HOJA INFORMATIVA SOBRE LA VACUNA CONTRA LA COVID-19</p>
+                </td>
+            </tr>
+           
+            <tr>
+                <td  colspan="2">
+                    <p class="text-justify">
+                        La pandemia ocasionada por la COVID-19 ha producido hasta el momento, más de 113 m millones de casos y más de 2,5 millones de muertes a lo largo de todo el mundo. La COVID-19 es la enfermedad producida por un nuevo coronavirus, llamado SARS cov-2, aparecido en China en diciembre del 2019, Se estima que el 85% de los casos de infección por este virus presentarán síntomas leves, un 15% síntomas moderados y un 5% síntomas severos que pueden llevar a la muerte.
+                    </p>
+                    <p class="text-justify">
+                        Desde la identificación del virus causante de la pandemia se ha ido desarrollando diversas vacunas contra la COVID-19 y algunas ya se encuentran disponibles para su uso en el contexto de la emergencia sanitaria.
+                    </p>
+                    <p class="text-justify">
+                        La vacunación es la principal herramienta para la prevención de la COVID-19 y se espera que cuando la mayoría de la población se encuentre vacunada (entre el 70-85%), la transmisión del virus en la comunidad sea mínima.
+                    </p>
+                    <p class="text-justify">
+                        Las vacunas contra la COVID-19 reduce significativamente la posibilidad de presentar síntomas o complicaciones a causa de la infección por el SARS-Cov-2.
+                    </p>
+                    <p class="text-justify">
+                        Se está ofreciendo a usted una vacuna, aprobada por el Ministerio de Salud, contra la COVID-19. Las características de la vacuna, el procedimiento para la vacunación, así como los beneficios a los riesgos de esta, serán informados y explicados por el personal de salud a cargo. Luego de ello, usted decidirá voluntariamente continuar con el proceso de vacunación.
+                    </p>
+                    <p class="text-justify">
+                        De manera general, la mayoría de los eventos adversos presentados por los vacunados por los vacunados se localizan en el lugar de la inyección: dolor, ligera hinchazón, enrojecimiento, se ha reportado algunas reacciones sistémicas como dolor de cabeza, malestar general, dolores musculares o cansancio. Estas reacciones se resuelven entre 48 a 72 horas después de la vacunación.
+                    </p>
+                    <p class="text-justify">
+                        Posterior a recibir la vacuna, usted se quedará 30 minutos en observación, para posteriormente retirarse.
+                    </p>
+                    <p class="text-justify">
+                        Se le hará entrega de una cartilla, donde se registra la vacunación y que deberá conservar para dosis posteriores de la vacuna.
+                    </p>
+                    <p class="text-justify">
+                        En caso presenta alguna molestia, debe acercarse inmediatamente al establecimiento de salud posteriores de la vacuna.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <div class="m-auto" style="width: auto; text-align:center">
+                        <div class="firma">
+                            <img src="{{public_path('firmas/'.date('y-m-d').'/'.$firmaConsentimiento1)}}" alt="" />
+                            <br/>
+                            <p style="margin-top:-30px; margin-left:0; margin-right:0; padding:0">Firma o huella digital del paciente</p>
+                        </div>
+                        <br>
+                        
+                        <div class="relative_linea mt-3" style=" margin: 0 auto; max-width:200px">
+                            <p >DNI N° {{$campo_documento2}}</p>
+                            <img src="{{public_path('images/linea_dni.png')}}" class="linea_dni" alt="">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            
+        </table>
+    </div>   
     @if($archivosAdjuntos!=null) 
     
         @foreach ( $archivosAdjuntos as $adjunto)
