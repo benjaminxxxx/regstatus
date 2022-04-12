@@ -45,6 +45,8 @@ class ModuloTriaje extends Component
 
     public $mostrarconsentimientoTercera = false;
     public $mostrarconsentimiento1ra2da18mas = false;
+
+    public $mostrarconsentimiento511 = false;
     
     //update 29/10/21
     public $mostrarconsentimientoMenor = false;
@@ -107,6 +109,8 @@ class ModuloTriaje extends Component
     public $firmartraije='consentimiento';
     public $establecimiento_id;
 
+    public $tutor;
+
     //actualizacion
     public $archivosAdjuntos;
 
@@ -116,7 +120,16 @@ class ModuloTriaje extends Component
 
     public $opt_consentimiento;
 
-    protected $listeners = ['guardarFirma','guardarFirma2','guardarFirmanv','guardarFirma4','guardarFirmaChild','guardarFirmaTercera','guardarFirma1ra2da18mas'];
+    protected $listeners = [
+        'guardarFirma',
+        'guardarFirma2',
+        'guardarFirmanv',
+        'guardarFirma4',
+        'guardarFirmaChild',
+        'guardarFirmaTercera',
+        'guardarFirma1ra2da18mas',
+        'guardarFirma511'
+    ];
 
     public function mount(){
         $red = Establecimiento::with(['rede'])->where(['estado'=>'1'])->first();
@@ -375,6 +388,8 @@ class ModuloTriaje extends Component
             $this->opt_consentimiento = '3ra18mas';
         }elseif($this->edad>=18 && ($this->dosis==1 || $this->dosis==2)){
             $this->opt_consentimiento = '1ra2da18mas';
+        }elseif($this->edad>=5 && $this->dosis<=11){
+            $this->opt_consentimiento = '511';
         }else{
             $this->opt_consentimiento = null;
         }
@@ -417,6 +432,11 @@ class ModuloTriaje extends Component
                     case '1ra2da18mas':
                         $this->emit('generar-firma-1ra2da18mas','1');
                         $this->mostrarconsentimiento1ra2da18mas = true;
+                        break;
+                    case '511':
+                      
+                        $this->emit('generar-firma-511','1');
+                        $this->mostrarconsentimiento511 = true;
                         break;
                     
                     default:
@@ -563,6 +583,29 @@ class ModuloTriaje extends Component
         //$this->emit('habilitar-boton');
         
         return $this->generarDocumentosFisico('1ra2da18mas');
+    }
+    public function guardarFirma511($imagenConsentimiento,$imagenDesistimiento,$tutor){
+
+        $this->firmaConsentimiento1 = $this->documento.uniqid() ."__511.png";
+        $this->firmaDesistimiento = $this->documento.uniqid()."__511.png";
+        $this->tutor = $tutor;
+
+        $fecha_dir = date('y-m-d');
+            
+        if(!file_exists('firmas/' . $fecha_dir)){
+            File::makeDirectory('firmas/' . $fecha_dir);
+        }
+
+        $path1 = "firmas/".$fecha_dir."/".$this->firmaConsentimiento1;
+        $path2 = "firmas/".$fecha_dir."/".$this->firmaDesistimiento;
+
+        $status1 = file_put_contents($path1,base64_decode($imagenConsentimiento));
+        $status2 = file_put_contents($path2,base64_decode($imagenDesistimiento));
+
+        $this->mostrarconsentimiento511 = false;
+        //$this->emit('habilitar-boton');
+        
+        return $this->generarDocumentosFisico('511');
     }
     public function guardarFirma2(){
         //$this->firmaConsentimiento2 = $this->documento.uniqid().".png";
@@ -787,7 +830,9 @@ class ModuloTriaje extends Component
 
             'firmartraije'=>$this->firmartraije,
 
-            'check_ninio_adolescente' => $this->estado_edad
+            'check_ninio_adolescente' => $this->estado_edad,
+
+            'tutor' => $this->tutor,
         ];
 
         $nombreSede = '';
@@ -812,6 +857,9 @@ class ModuloTriaje extends Component
             case '1ra2da18mas':
                 $docpdf = 'consentimiento1ra2da18mas_pdf';
                 break;
+            case '511':
+                $docpdf = 'consentimiento511_pdf';
+                break;
             
             default:
                 $docpdf = 'consentimientotres_mix_pdf';
@@ -820,7 +868,7 @@ class ModuloTriaje extends Component
 
         $pdf_documento1 = PDF::loadView("snippets.$docpdf", $data)
         ->setPaper($customPaper)->save('docs/'. $this->documento_nombre_1);
-
+dd('dd');
 
         $usuarioAtendido = UsuarioAtendido::find($this->registro_id);
 
