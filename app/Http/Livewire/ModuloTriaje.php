@@ -868,7 +868,7 @@ class ModuloTriaje extends Component
 
         $pdf_documento1 = PDF::loadView("snippets.$docpdf", $data)
         ->setPaper($customPaper)->save('docs/'. $this->documento_nombre_1);
-dd('dd');
+
 
         $usuarioAtendido = UsuarioAtendido::find($this->registro_id);
 
