@@ -106,7 +106,7 @@
 <body class="bg-purple">
    
     <div class="sellos" style="position:absolute; left:-70px;bottom:160px;">
-        <img src="{{public_path('images/sellos3.png')}}" width="70px" alt="">
+        <img src="{{public_path('images/sellos3.jpg')}}" width="70px" alt="">
     </div>
     
     <div class="content">

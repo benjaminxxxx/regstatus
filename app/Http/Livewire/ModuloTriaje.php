@@ -392,6 +392,8 @@ class ModuloTriaje extends Component
             $this->opt_consentimiento = '1ra2da18mas';
         }elseif($this->edad>=5 && $this->dosis<=11){
             $this->opt_consentimiento = '511';
+        }elseif($this->edad>=12 && $this->dosis<=17){
+            $this->opt_consentimiento = '1217';
         }else{
             $this->opt_consentimiento = null;
         }
