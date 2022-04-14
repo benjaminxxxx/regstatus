@@ -105,10 +105,10 @@
 </head>
 <body class="bg-purple">
     <div class="sellos" style="position:absolute; left:-70px;top:0px;">
-        <img src="{{public_path('images/logo-essalud2.png')}}" width="170px" alt="">
+        <img src="{{public_path('images/logo-essalud2.jpg')}}" width="170px" alt="">
     </div>
     <div class="sellos" style="position:absolute; left:-70px;bottom:160px;">
-        <img src="{{public_path('images/sellos3.png')}}" width="70px" alt="">
+        <img src="{{public_path('images/sellos3.jpg')}}" width="70px" alt="">
     </div>
     
     <div class="content">
