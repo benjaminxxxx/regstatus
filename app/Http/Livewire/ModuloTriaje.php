@@ -47,6 +47,7 @@ class ModuloTriaje extends Component
     public $mostrarconsentimiento1ra2da18mas = false;
 
     public $mostrarconsentimiento511 = false;
+    public $mostrarconsentimiento1217 = false;
     
     //update 29/10/21
     public $mostrarconsentimientoMenor = false;
@@ -128,7 +129,8 @@ class ModuloTriaje extends Component
         'guardarFirmaChild',
         'guardarFirmaTercera',
         'guardarFirma1ra2da18mas',
-        'guardarFirma511'
+        'guardarFirma511',
+        'guardarFirmaCodex'
     ];
 
     public function mount(){
@@ -438,6 +440,11 @@ class ModuloTriaje extends Component
                         $this->emit('generar-firma-511','1');
                         $this->mostrarconsentimiento511 = true;
                         break;
+                    case '1217':
+                    
+                        $this->emit('generar-firma-1217','1');
+                        $this->mostrarconsentimiento1217 = true;
+                        break;
                     
                     default:
                         $this->mostrarconsentimiento = true;
@@ -606,6 +613,52 @@ class ModuloTriaje extends Component
         //$this->emit('habilitar-boton');
         
         return $this->generarDocumentosFisico('511');
+    }
+    /*
+    public function guardarFirma1217($imagenConsentimiento,$imagenDesistimiento){
+
+        $this->firmaConsentimiento1 = $this->documento.uniqid() ."__1217.png";
+        $this->firmaDesistimiento = $this->documento.uniqid()."__1217.png";
+
+        $fecha_dir = date('y-m-d');
+            
+        if(!file_exists('firmas/' . $fecha_dir)){
+            File::makeDirectory('firmas/' . $fecha_dir);
+        }
+
+        $path1 = "firmas/".$fecha_dir."/".$this->firmaConsentimiento1;
+        $path2 = "firmas/".$fecha_dir."/".$this->firmaDesistimiento;
+
+        $status1 = file_put_contents($path1,base64_decode($imagenConsentimiento));
+        $status2 = file_put_contents($path2,base64_decode($imagenDesistimiento));
+
+        $this->mostrarconsentimiento511 = false;
+        //$this->emit('habilitar-boton');
+        
+        return $this->generarDocumentosFisico('1217');
+    }*/
+    public function guardarFirmaCodex($imagenConsentimiento,$imagenDesistimiento,$codex){
+
+        $this->firmaConsentimiento1 = $this->documento.uniqid() ."__".$codex.".png";
+        $this->firmaDesistimiento = $this->documento.uniqid()."__".$codex.".png";
+
+        $fecha_dir = date('y-m-d');
+            
+        if(!file_exists('firmas/' . $fecha_dir)){
+            File::makeDirectory('firmas/' . $fecha_dir);
+        }
+
+        $path1 = "firmas/".$fecha_dir."/".$this->firmaConsentimiento1;
+        $path2 = "firmas/".$fecha_dir."/".$this->firmaDesistimiento;
+
+        $status1 = file_put_contents($path1,base64_decode($imagenConsentimiento));
+        $status2 = file_put_contents($path2,base64_decode($imagenDesistimiento));
+
+        $this->mostrarconsentimiento511 = false;
+        $this->mostrarconsentimiento1217 = false;
+        //$this->emit('habilitar-boton');
+        
+        return $this->generarDocumentosFisico($codex);
     }
     public function guardarFirma2(){
         //$this->firmaConsentimiento2 = $this->documento.uniqid().".png";
@@ -860,7 +913,9 @@ class ModuloTriaje extends Component
             case '511':
                 $docpdf = 'consentimiento511_pdf';
                 break;
-            
+            case '1217':
+                $docpdf = 'consentimiento1217_pdf';
+                break;
             default:
                 $docpdf = 'consentimientotres_mix_pdf';
                 break;
@@ -869,6 +924,7 @@ class ModuloTriaje extends Component
         $pdf_documento1 = PDF::loadView("snippets.$docpdf", $data)
         ->setPaper($customPaper)->save('docs/'. $this->documento_nombre_1);
 
+        dd('dd');
 
         $usuarioAtendido = UsuarioAtendido::find($this->registro_id);
 

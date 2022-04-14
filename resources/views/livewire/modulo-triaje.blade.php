@@ -7,6 +7,7 @@
     @include('snippets.consentimientoTercero')
     @include('snippets.consentimiento1ra2da18mas')
     @include('snippets.consentimiento511')
+    @include('snippets.consentimiento1217')
 
     @include('snippets.consentimientoSino')
 
@@ -141,9 +142,8 @@
                             <option value="">ELEGIR</option>
                             <option value="3ra18mas">3ra dosis de 18 a más</option>
                             <option value="1ra2da18mas">1ra y 2da dosis de 18 a más</option>
-                            <option value="511">de 5 a 11 años</option>
-                            <!--<option value="1217">12-17 años</option>
-                            <option value="511">5-11 años</option>-->
+                            <option value="1217">12-17 años</option>
+                            <option value="511">5-11 años</option>
                         </x-select>
                     </div>  
                     
@@ -344,6 +344,9 @@
 
             var sigdiv5111 = null;
             var sigdiv5112 = null;
+
+            var sigdiv12171 = null;
+            var sigdiv12172 = null;
             
             $(document).ready(function() {
                 
@@ -419,6 +422,17 @@
                     Livewire.emit('guardarFirma511',firma5111[1],firma5112[1],tutor);
                 
                 });
+
+                $(document).on('click','#signature1217',function(e){
+                    e.preventDefault();
+                    $('.loading-docs').removeClass('hidden');
+                    $(this).attr('disabled',true);
+                    var firma12171 = $(sigdiv12171).jSignature('getData', 'image');
+                    var firma12172 = $(sigdiv12172).jSignature('getData', 'image');
+
+                    Livewire.emit('guardarFirmaCodex',firma12171[1],firma12172[1],'1217');
+                
+                });
             });
           
             window.livewire.on('generar-firma', iddoc => {
@@ -483,6 +497,18 @@
                     
                 });
             });
+
+            window.livewire.on('generar-firma-1217', iddoc => {
+                $(document).ready(function() {
+                
+                    $('.firmap').addClass('opacity-0');
+                    $('.firmap'+iddoc).removeClass('opacity-0');
+                    sigdiv12171 = $("#signaturesign12171").jSignature({'UndoButton':true,color:"#000",lineWidth:1});
+                    sigdiv12172 = $("#signaturesign12172").jSignature({'UndoButton':true,color:"#000",lineWidth:1});
+                    
+                });
+            });
+
             window.livewire.on('generar-firma-final', iddoc => {
                 $(document).ready(function() {
 
